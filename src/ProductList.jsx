@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './ProductList.css'
 import CartItem from './CartItem';
+import {addItem} from './CartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
+    const [addedToCart, setAddedToCart] = useState({});
 
     const plantsArray = [
         {
@@ -252,6 +256,12 @@ function ProductList({ onHomeClick }) {
         e.preventDefault();
         setShowCart(false);
     };
+
+    const handleAddToCart = (item) => {
+        useDispatch(addItem(item));
+
+        setAddedToCart((prevState) => ({...prevState, [item.name]: true,}));
+    };
     return (
         <div>
             <div className="navbar" style={styleObj}>
@@ -279,19 +289,24 @@ function ProductList({ onHomeClick }) {
                             <h1>
                                 <div>{category.category}</div>
                             </h1>
-                        
+                            
                             <div className='product-list'>
-                                {category.plants.map((item, plantIndex) => {
+                                {category.plants.map((item, plantIndex) => (
                                     <div className='product-card' key={plantIndex}>
+                                        
                                         <img
                                           className='product-image'
                                           src={item.image}
                                           alt={item.name}
                                         />
-                                        
-
+                                        <div className='product-title'>{item.name}</div>
+                                        <div className='product-description'>{item.description}</div>
+                                        <div className='product-cost'>{item.cost}</div>
+                                        <button className='product-button' onClick={() => handleCartClick(item)}>
+                                        Add to Cart
+                                        </button>
                                     </div>
-                                })}
+                                ))}
                             </div>
                         </div> 
                     ))}
