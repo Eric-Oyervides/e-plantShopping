@@ -74,6 +74,19 @@ body {
     gap: 20px;
 }
 
+.cart-count {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 1;
+}
+
 /* Pseudo-classes - Hover effect on product button */
 .product-card:hover {
     transform: scale(1.05);

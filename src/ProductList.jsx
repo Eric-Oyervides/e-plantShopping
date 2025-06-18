@@ -291,19 +291,7 @@ function ProductList({ onHomeClick }) {
                     <div style={{textAlign: 'center'}}>
                     <a href="#" onClick={(e) => handleCartClick(e)} style={styleA}>
                         <div style={{ position: 'relative', display: 'inline-block' }}> 
-                        <span style={{
-                            position: 'absolute',
-                            top: '50%',
-                            right: '50%',
-                            transform: 'translate(50%, -50%)',
-                            backgroundColor: 'red',
-                            color: 'white',
-                            borderRadius: '50%',
-                            padding: '2px 6px',
-                            fontSize: '12px',
-                            fontWeight: 'bold',
-                            zIndex: 1,
-                        }}>
+                        <span className='cart-count'>
                             {cartElementCount}
                         </span>
                         
@@ -317,7 +305,7 @@ function ProductList({ onHomeClick }) {
             {!showCart ? (
                 <div className="product-grid">
                     {plantsArray.map((category, index) => (
-                       <div key={index}>
+                       <div key={index} style={{textAlign: "center", padding: "20px"}}>
                             <h1>
                                 <div>{category.category}</div>
                             </h1>
@@ -333,7 +321,7 @@ function ProductList({ onHomeClick }) {
                                         />
                                         <div className='product-title'>{item.name}</div>
                                         <div className='product-description'>{item.description}</div>
-                                        <div className='product-cost'>{item.cost}</div>
+                                        <div className='product-price'>{item.cost}</div>
                                         <button className='product-button' onClick={() => handleAddToCart(item)}>
                                         Add to Cart
                                         </button>
