@@ -19,7 +19,7 @@ function ProductList({ onHomeClick }) {
                     name: "Snake Plant",
                     image: "https://cdn.pixabay.com/photo/2021/01/22/06/04/snake-plant-5939187_1280.jpg",
                     description: "Produces oxygen at night, improving air quality.",
-                    cost: "$15"
+                    cost: "$15",
                 },
                 {
                     name: "Spider Plant",
@@ -269,6 +269,7 @@ function ProductList({ onHomeClick }) {
         setAddedToCart((prevState) => ({...prevState, [item.name]: true,}));
         
     };
+
     
 
     return (
@@ -322,8 +323,8 @@ function ProductList({ onHomeClick }) {
                                         <div className='product-title'>{item.name}</div>
                                         <div className='product-description'>{item.description}</div>
                                         <div className='product-price'>{item.cost}</div>
-                                        <button className='product-button' onClick={() => handleAddToCart(item)}>
-                                        Add to Cart
+                                        <button className='product-button' onClick={() => handleAddToCart(item)} disabled={!!addedToCart[item.name]}>
+                                        {(!!addedToCart[item.name]) ? "Added" : "Add to cart"}
                                         </button>
                                     </div>
                                 ))}
