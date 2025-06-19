@@ -3,6 +3,7 @@ import './ProductList.css'
 import CartItem from './CartItem';
 import {addItem} from './CartSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { createReducer } from '@reduxjs/toolkit';
 
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
@@ -10,6 +11,8 @@ function ProductList({ onHomeClick }) {
     const [addedToCart, setAddedToCart] = useState({});
     const dispatch = useDispatch();
     const [cartElementCount, setCartElementCount] = useState(0);
+
+    const cart = useSelector(state => state.cart.items);
 
     const plantsArray = [
         {
@@ -243,6 +246,18 @@ function ProductList({ onHomeClick }) {
         setCartElementCount(() => (Object.keys(addedToCart).length));
     }, [addedToCart]);
 
+    useEffect(() => {
+        setAddedToCart(updateAddedToCart());
+    }, [cart])
+
+    const updateAddedToCart = () => {
+        let newAddedToCart = {}
+        cart.forEach((item) => {
+            newAddedToCart = {...newAddedToCart, [item.name]: true};
+        })
+        return newAddedToCart;
+    }
+
     const handleHomeClick = (e) => {
         e.preventDefault();
         onHomeClick();
@@ -266,7 +281,7 @@ function ProductList({ onHomeClick }) {
     const handleAddToCart = (item) => {
         dispatch(addItem(item));
 
-        setAddedToCart((prevState) => ({...prevState, [item.name]: true,}));
+        //setAddedToCart((prevState) => ({...prevState, [item.name]: true,}));
         
     };
 
